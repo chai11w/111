@@ -20,13 +20,14 @@
 - 已实现 ROI 阈值初筛：`src/roi_filter.py`。
 - 已实现异常广告结构化整理：`AlertCase` 包含 `alert_type`、`trigger_rule` 和 `metrics`。
 - 已沉淀项目内分析流程：`skills/roi-anomaly-analysis/SKILL.md`。
+- 已实现离线 LLM 分析层：`src/llm_analyzer.py`。
+- 已生成 Markdown 预警报告：`reports/roi_alert_report.md`。
 - 已创建基础测试：`tests/test_roi_filter.py`。
 - 已创建项目说明：`README.md`。
 
 ## 未完成
 
-- 尚未实现 LLM 分析接口或离线占位分析器。
-- 尚未实现 Markdown 预警报告生成。
+- 尚未接入真实 LLM API。
 - 尚未接入真实广告平台数据。
 
 ## 关键规则
@@ -58,6 +59,12 @@ python src/roi_filter.py --input data/ad_data_sample.csv
 python -m unittest discover -s tests
 ```
 
+生成 Markdown 预警报告：
+
+```powershell
+python src/llm_analyzer.py --input data/ad_data_sample.csv --output reports/roi_alert_report.md
+```
+
 检查版本库状态：
 
 ```powershell
@@ -72,4 +79,4 @@ python scripts/append_codex_record.py --time "2026-07-06 22:00:00" --user-input 
 
 ## 下一步
 
-下一步建议实现 LLM 分析层。第一版可以先做本地离线占位分析器，只分析 `AlertCase` 异常广告对象，并按 `skills/roi-anomaly-analysis/SKILL.md` 生成原因和建议。
+下一步可以根据需要接入真实 LLM API，或继续完善 Markdown 报告格式。

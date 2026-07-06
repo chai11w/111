@@ -64,10 +64,18 @@ Cindy -> Home
 
 项目内分析流程已沉淀到 `skills/roi-anomaly-analysis/SKILL.md`。后续 LLM 分析层或离线占位分析器应按该流程分析 `AlertCase`，只做原因分析和建议生成，不重新判断 ROI 是否异常。
 
+当前已实现离线 LLM 分析层：`src/llm_analyzer.py`。它会读取 ROI 初筛结果，按项目内分析流程生成可能原因、建议动作和人工确认项，并输出 Markdown 预警报告。
+
 运行初筛：
 
 ```powershell
 python src/roi_filter.py --input data/ad_data_sample.csv
+```
+
+生成 Markdown 预警报告：
+
+```powershell
+python src/llm_analyzer.py --input data/ad_data_sample.csv --output reports/roi_alert_report.md
 ```
 
 运行测试：
@@ -78,4 +86,4 @@ python -m unittest discover -s tests
 
 ## 后续步骤
 
-下一步实现 LLM 分析层。第一版可以先使用本地离线占位分析器，并按 `skills/roi-anomaly-analysis/SKILL.md` 的流程生成原因和建议。
+下一步可以根据需要接入真实 LLM API，或继续完善 Markdown 报告格式。
