@@ -363,3 +363,33 @@ tests/test_roi_filter.py
 ```
 .agents/codex过程记录.md
 ```
+
+### 2026-07-06 22:12:06
+
+**用户输入**
+
+```
+用户要求优化项目上下文，降低后续对话的上下文消耗。
+
+用户指出 `.agents/codex过程记录.md` 很长且容易被每轮读取，要求修改规则：日常工作只读取 `AGENTS.md` 和 `.agents/project_memory.md`；只有明确要求整理提交材料、回顾历史、检查完整对话记录时才读取 `.agents/codex过程记录.md`；`.agents/codex过程记录.md` 只作为作业提交材料保存，后续可以追加，但不要为了追加而全文读取；精简 `.agents/project_memory.md`；保留完整 AI 使用过程记录文件是 `.agents/codex过程记录.md`；不要删除 `.agents/codex过程记录.md` 的已有内容。
+```
+
+**模型输出**
+
+```
+模型使用 `project-context-bootstrap-c` 检查项目上下文维护规则。
+
+模型修改 `AGENTS.md`，把默认读取顺序改为只读 `AGENTS.md`、`.agents/project_memory.md`，再按任务需要读取 `README.md` 和相关代码；明确日常工作不要默认读取 `.agents/codex过程记录.md`。
+
+模型精简 `.agents/project_memory.md`，只保留当前状态、已完成、未完成、关键规则、重要命令和下一步，删除重复历史过程和过细的 git 过程描述。
+
+模型保留 `.agents/codex过程记录.md` 的全部已有内容，只在文件末尾追加本轮记录。
+```
+
+**本轮修改文件**
+
+```
+AGENTS.md
+.agents/project_memory.md
+.agents/codex过程记录.md
+```
