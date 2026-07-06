@@ -19,6 +19,8 @@ data/
   ad_data_sample.csv
 src/
 reports/
+skills/
+  roi-anomaly-analysis/
 ```
 
 ## 模拟数据字段
@@ -60,6 +62,8 @@ Cindy -> Home
 - `trigger_rule`：触发规则，例如 `roi < 1.2`。
 - `metrics`：关键指标，包括 `spend`、`revenue`、`orders`、`clicks`、`impressions`、`ctr`、`cpa`、`roi`。
 
+项目内分析流程已沉淀到 `skills/roi-anomaly-analysis/SKILL.md`。后续 LLM 分析层或离线占位分析器应按该流程分析 `AlertCase`，只做原因分析和建议生成，不重新判断 ROI 是否异常。
+
 运行初筛：
 
 ```powershell
@@ -74,4 +78,4 @@ python -m unittest discover -s tests
 
 ## 后续步骤
 
-下一步实现 LLM 分析层。第一版可以先使用本地离线占位分析器，避免被 API key 或网络环境卡住。
+下一步实现 LLM 分析层。第一版可以先使用本地离线占位分析器，并按 `skills/roi-anomaly-analysis/SKILL.md` 的流程生成原因和建议。

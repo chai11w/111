@@ -7,6 +7,7 @@
 - 当前 MVP 范围：ROI 异常预警分析模块。
 - 输入：模拟 CSV 广告数据 `data/ad_data_sample.csv`。
 - 输出目标：Markdown 预警报告，后续生成到 `reports/`。
+- 项目内 ROI 异常分析流程：`skills/roi-anomaly-analysis/SKILL.md`。
 - 当前数据字段：`date,platform,owner,category,campaign_name,ad_name,spend,revenue,orders,clicks,impressions,ctr,cpa,roi`。
 - 当前模拟投手和品类：`Alice -> Beauty`、`Ben -> Electronics`、`Cindy -> Home`。
 - 完整 AI 使用过程记录文件是 `.agents/codex过程记录.md`。
@@ -18,6 +19,7 @@
 - 已创建模拟广告数据：`data/ad_data_sample.csv`。
 - 已实现 ROI 阈值初筛：`src/roi_filter.py`。
 - 已实现异常广告结构化整理：`AlertCase` 包含 `alert_type`、`trigger_rule` 和 `metrics`。
+- 已沉淀项目内分析流程：`skills/roi-anomaly-analysis/SKILL.md`。
 - 已创建基础测试：`tests/test_roi_filter.py`。
 - 已创建项目说明：`README.md`。
 
@@ -34,7 +36,7 @@
 - `.agents/codex过程记录.md` 只作为作业提交材料保存；后续可以追加，但不要为了追加而全文读取。
 - ROI 是否异常必须由确定性阈值逻辑判断，LLM 不负责判断 ROI 是否达标。
 - 当前默认阈值：`roi < 1.2` 为低效广告，`roi > 3.0` 为优质广告。
-- LLM 只分析已经被阈值筛出的异常广告，并结合投手、品类、点击率、花费、订单数、转化成本等字段生成原因和建议。
+- LLM 只分析已经被阈值筛出的异常广告，并按 `skills/roi-anomaly-analysis/SKILL.md` 的流程生成原因和建议。
 - 第一版 MVP 不执行预算调整，只输出预警和建议。
 - 文件名、路径、命令、仓库地址保持原样，不翻译。
 - 每次代码、脚本、文档、配置或项目上下文更新后，都应提交并推送到 `https://github.com/chai11w/111`。
@@ -62,4 +64,4 @@ git status --short --branch
 
 ## 下一步
 
-下一步建议实现 LLM 分析层。第一版可以先做本地离线占位分析器，只分析 `AlertCase` 异常广告对象，避免被 API key 或网络环境卡住。
+下一步建议实现 LLM 分析层。第一版可以先做本地离线占位分析器，只分析 `AlertCase` 异常广告对象，并按 `skills/roi-anomaly-analysis/SKILL.md` 生成原因和建议。

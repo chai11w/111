@@ -449,3 +449,36 @@ README.md
 ```
 .agents/codex过程记录.md
 ```
+
+### 2026-07-06 22:41:31
+
+**用户输入**
+
+```
+用户要求开始实现 LLM 分析层前，先判断是否需要做 skills。用户认为需要根据人工数据分析方法沉淀固定分析流程，但当前没有相关方法，因此要求模型自行写一套合适的数据处理和分析方法，总结成 skills，后续再做分析层。
+
+用户随后明确要求不要使用 `project-context-bootstrap-c`。
+```
+
+**模型输出**
+
+```
+模型停止继续使用 `project-context-bootstrap-c`。
+
+模型判断：当前不适合直接创建全局 Codex skill，因为该分析方法属于本笔试项目内的业务流程，尚未经过真实投放数据验证。更合适的做法是先创建项目内 skill，供后续 LLM 分析层或离线占位分析器使用。
+
+模型尝试在 `.agents/skills/roi-anomaly-analysis/SKILL.md` 创建项目内 skill，但系统拒绝在 `.agents` 下创建新目录，因此改为创建 `skills/roi-anomaly-analysis/SKILL.md`。
+
+模型编写 `skills/roi-anomaly-analysis/SKILL.md`，沉淀 ROI 异常广告分析流程，包括输入边界、分析原则、固定分析步骤、低效广告分析方法、优质广告分析方法、优先级规则、输出格式和禁止事项。
+
+模型更新 `README.md` 和 `.agents/project_memory.md`，记录后续 LLM 分析层应按 `skills/roi-anomaly-analysis/SKILL.md` 分析 `AlertCase`，只做原因分析和建议生成，不重新判断 ROI 是否异常。
+```
+
+**本轮修改文件**
+
+```
+skills/roi-anomaly-analysis/SKILL.md
+README.md
+.agents/project_memory.md
+.agents/codex过程记录.md
+```
