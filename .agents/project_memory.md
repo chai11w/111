@@ -34,6 +34,8 @@
 - 日常新会话只默认读取 `AGENTS.md` 和 `.agents/project_memory.md`。
 - 只有用户明确要求整理提交材料、回顾历史、检查完整对话记录时，才读取 `.agents/codex过程记录.md`。
 - `.agents/codex过程记录.md` 只作为作业提交材料保存；后续可以追加，但不要为了追加而全文读取。
+- 新增过程记录必须使用追加写入方式，优先使用 `python scripts/append_codex_record.py`，不要用 `apply_patch` 修改 `.agents/codex过程记录.md`。
+- 检查过程记录是否已追加时，只查看标题日期或文件末尾，不全文读取。
 - ROI 是否异常必须由确定性阈值逻辑判断，LLM 不负责判断 ROI 是否达标。
 - 当前默认阈值：`roi < 1.2` 为低效广告，`roi > 3.0` 为优质广告。
 - LLM 只分析已经被阈值筛出的异常广告，并按 `skills/roi-anomaly-analysis/SKILL.md` 的流程生成原因和建议。
@@ -60,6 +62,12 @@ python -m unittest discover -s tests
 
 ```powershell
 git status --short --branch
+```
+
+追加过程记录：
+
+```powershell
+python scripts/append_codex_record.py --time "2026-07-06 22:00:00" --user-input "用户输入摘要" --model-output "模型输出摘要" --changed-file "文件A" --changed-file "文件B"
 ```
 
 ## 下一步

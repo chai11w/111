@@ -482,3 +482,27 @@ README.md
 .agents/project_memory.md
 .agents/codex过程记录.md
 ```
+
+### 2026-07-06 22:45:56
+
+**用户输入**
+
+```
+用户指出 codex过程记录文件 应该一次性解决，只需要挨着现有文件往下写。
+```
+
+**模型输出**
+
+```
+模型确认问题根因是此前用 apply_patch 按文本匹配插入，遇到重复段落会插到中间。模型新增 scripts/append_codex_record.py，并将 scripts/append_codex_record.ps1 改为包装器；后续过程记录统一用追加脚本写入。同时更新 AGENTS.md 与 .agents/project_memory.md，明确不要用 apply_patch 修改 .agents/codex过程记录.md，检查时只看标题日期或文件末尾。
+```
+
+**本轮修改文件**
+
+```
+scripts/append_codex_record.py
+scripts/append_codex_record.ps1
+AGENTS.md
+.agents/project_memory.md
+.agents/codex过程记录.md
+```
