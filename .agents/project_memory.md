@@ -17,12 +17,12 @@
 - 已创建基础项目结构：`data/`、`src/`、`reports/`、`tests/`。
 - 已创建模拟广告数据：`data/ad_data_sample.csv`。
 - 已实现 ROI 阈值初筛：`src/roi_filter.py`。
+- 已实现异常广告结构化整理：`AlertCase` 包含 `alert_type`、`trigger_rule` 和 `metrics`。
 - 已创建基础测试：`tests/test_roi_filter.py`。
 - 已创建项目说明：`README.md`。
 
 ## 未完成
 
-- 尚未实现异常广告结构化整理的最终数据契约。
 - 尚未实现 LLM 分析接口或离线占位分析器。
 - 尚未实现 Markdown 预警报告生成。
 - 尚未接入真实广告平台数据。
@@ -62,4 +62,4 @@ git status --short --branch
 
 ## 下一步
 
-下一步建议实现轻量的异常广告结构化整理：在现有 `ClassifiedAd` 基础上固定 `alert_type`、`trigger_rule` 和 `metrics`，为后续 LLM 分析和 Markdown 报告生成提供稳定输入。
+下一步建议实现 LLM 分析层。第一版可以先做本地离线占位分析器，只分析 `AlertCase` 异常广告对象，避免被 API key 或网络环境卡住。

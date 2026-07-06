@@ -39,7 +39,7 @@ Ben -> Electronics
 Cindy -> Home
 ```
 
-## 下一步
+## 当前能力
 
 当前已实现 ROI 阈值初筛逻辑：
 
@@ -53,6 +53,12 @@ Cindy -> Home
 低效广告：roi < 1.2
 优质广告：roi > 3.0
 ```
+
+初筛后的异常广告会整理为 `AlertCase` 结构化对象，包含：
+
+- `alert_type`：异常类型，当前为 `低效广告` 或 `优质广告`。
+- `trigger_rule`：触发规则，例如 `roi < 1.2`。
+- `metrics`：关键指标，包括 `spend`、`revenue`、`orders`、`clicks`、`impressions`、`ctr`、`cpa`、`roi`。
 
 运行初筛：
 

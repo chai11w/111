@@ -6,6 +6,20 @@ from pathlib import Path
 
 LOW_ROI_THRESHOLD = 1.2
 HIGH_ROI_THRESHOLD = 3.0
+KEY_METRIC_FIELDS = ("spend", "revenue", "orders", "clicks", "impressions", "ctr", "cpa", "roi")
+
+
+@dataclass(frozen=True)
+class AlertCase:
+    date: str
+    platform: str
+    owner: str
+    category: str
+    campaign_name: str
+    ad_name: str
+    alert_type: str
+    trigger_rule: str
+    metrics: dict[str, float]
 
 
 @dataclass(frozen=True)
@@ -13,6 +27,24 @@ class ClassifiedAd:
     row: dict
     alert_type: str
     trigger_rule: str
+    row_number: int
+
+    def to_alert_case(self) -> AlertCase:
+        metrics = {
+            field_name: parse_float(self.row[field_name], field_name, self.row_number)
+            for field_name in KEY_METRIC_FIELDS
+        }
+        return AlertCase(
+            date=self.row["date"],
+            platform=self.row["platform"],
+            owner=self.row["owner"],
+            category=self.row["category"],
+            campaign_name=self.row["campaign_name"],
+            ad_name=self.row["ad_name"],
+            alert_type=self.alert_type,
+            trigger_rule=self.trigger_rule,
+            metrics=metrics,
+        )
 
 
 def parse_float(value: str, field_name: str, row_number: int) -> float:
@@ -50,7 +82,9 @@ def load_and_classify_ads(
             if classification is None:
                 continue
             alert_type, trigger_rule = classification
-            classified_ads.append(ClassifiedAd(row=row, alert_type=alert_type, trigger_rule=trigger_rule))
+            classified_ads.append(
+                ClassifiedAd(row=row, alert_type=alert_type, trigger_rule=trigger_rule, row_number=row_number)
+            )
 
     return classified_ads
 
@@ -61,10 +95,11 @@ def print_classified_ads(classified_ads: list[ClassifiedAd]) -> None:
         return
 
     for ad in classified_ads:
-        row = ad.row
+        alert_case = ad.to_alert_case()
         print(
-            f"{ad.alert_type} | {row['platform']} | {row['owner']} | {row['category']} | {row['campaign_name']} | "
-            f"{row['ad_name']} | roi={row['roi']} | 触发规则：{ad.trigger_rule}"
+            f"{alert_case.alert_type} | {alert_case.platform} | {alert_case.owner} | {alert_case.category} | "
+            f"{alert_case.campaign_name} | {alert_case.ad_name} | roi={alert_case.metrics['roi']} | "
+            f"触发规则：{alert_case.trigger_rule}"
         )
 
 

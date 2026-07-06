@@ -118,6 +118,38 @@ AGENTS.md
 .agents/codex过程记录.md
 ```
 
+### 2026-07-06 22:25:57
+
+**用户输入**
+
+```
+用户确认下一步开始执行：在 `ClassifiedAd` 基础上增加结构化输出方法，或者新增一个很薄的 `AlertCase` 对象。
+```
+
+**模型输出**
+
+```
+模型按日常上下文规则只读取 `AGENTS.md`、`.agents/project_memory.md` 和任务相关代码，没有全文读取 `.agents/codex过程记录.md`。
+
+模型在 `src/roi_filter.py` 中新增轻量 `AlertCase` 对象，并为 `ClassifiedAd` 增加 `to_alert_case()` 方法。`AlertCase` 固定包含广告基础信息、`alert_type`、`trigger_rule` 和 `metrics`。
+
+模型将关键指标集中为 `KEY_METRIC_FIELDS`，包括 `spend`、`revenue`、`orders`、`clicks`、`impressions`、`ctr`、`cpa`、`roi`，并在结构化输出时转换为数值。
+
+模型更新 `tests/test_roi_filter.py`，新增测试验证 `ClassifiedAd` 可以生成 `AlertCase`，且 `metrics` 字段完整并为数值。
+
+模型更新 `README.md` 和 `.agents/project_memory.md`，记录异常广告结构化整理已完成，下一步改为实现 LLM 分析层或离线占位分析器。
+```
+
+**本轮修改文件**
+
+```
+src/roi_filter.py
+tests/test_roi_filter.py
+README.md
+.agents/project_memory.md
+.agents/codex过程记录.md
+```
+
 ### 2026-07-06 18:19:12
 
 **用户输入**

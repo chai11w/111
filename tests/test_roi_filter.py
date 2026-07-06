@@ -2,7 +2,7 @@ import csv
 import unittest
 from pathlib import Path
 
-from src.roi_filter import classify_roi, load_and_classify_ads
+from src.roi_filter import KEY_METRIC_FIELDS, classify_roi, load_and_classify_ads
 
 
 class RoiFilterTest(unittest.TestCase):
@@ -31,6 +31,18 @@ class RoiFilterTest(unittest.TestCase):
 
         self.assertEqual({row["owner"] for row in rows}, {"Alice", "Ben", "Cindy"})
         self.assertEqual({row["category"] for row in rows}, {"Beauty", "Electronics", "Home"})
+
+    def test_classified_ad_can_build_alert_case(self):
+        classified_ad = load_and_classify_ads(Path("data/ad_data_sample.csv"))[0]
+        alert_case = classified_ad.to_alert_case()
+
+        self.assertEqual(alert_case.alert_type, classified_ad.alert_type)
+        self.assertEqual(alert_case.trigger_rule, classified_ad.trigger_rule)
+        self.assertEqual(alert_case.platform, classified_ad.row["platform"])
+        self.assertEqual(alert_case.owner, classified_ad.row["owner"])
+        self.assertEqual(alert_case.category, classified_ad.row["category"])
+        self.assertEqual(set(alert_case.metrics), set(KEY_METRIC_FIELDS))
+        self.assertTrue(all(isinstance(value, float) for value in alert_case.metrics.values()))
 
 
 if __name__ == "__main__":
