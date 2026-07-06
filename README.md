@@ -9,8 +9,9 @@
 - 输入：模拟 CSV 广告数据，位置为 `data/ad_data_sample.csv`。
 - 初筛：由确定性 ROI 阈值判断异常广告。
 - LLM：不判断 ROI 是否达标，只分析已经被阈值筛出的异常广告。
-- 输出：Markdown 预警报告，后续生成到 `reports/`。
+- 输出：Markdown 预警报告，生成到 `reports/roi_alert_report.md`。
 - 第一版不自动调整预算，只输出预警和建议。
+- 当前 LLM 为离线模拟分析层，不调用真实 LLM API。
 
 ## 当前目录
 
@@ -66,23 +67,80 @@ Cindy -> Home
 
 当前已实现离线 LLM 分析层：`src/llm_analyzer.py`。它会读取 ROI 初筛结果，按项目内分析流程生成可能原因、建议动作和人工确认项，并输出 Markdown 预警报告。
 
-运行初筛：
+## 如何运行
+
+从项目根目录执行以下命令。
+
+1. 运行 ROI 初筛：
 
 ```powershell
 python src/roi_filter.py --input data/ad_data_sample.csv
 ```
 
-生成 Markdown 预警报告：
+2. 生成 Markdown 预警报告：
 
 ```powershell
 python src/llm_analyzer.py --input data/ad_data_sample.csv --output reports/roi_alert_report.md
 ```
 
-运行测试：
+3. 运行测试：
 
 ```powershell
 python -m unittest discover -s tests
 ```
+
+## 输入与输出
+
+输入文件：
+
+```text
+data/ad_data_sample.csv
+```
+
+输入含义：
+
+- 用模拟 CSV 表示从统一广告后台提取到的广告数据。
+- 当前字段包括平台、投手、品类、广告系列、广告名、花费、收入、订单数、点击数、展示数、点击率、转化成本和 ROI。
+- 当前样本覆盖 Facebook、Google、TikTok 三个平台。
+
+输出文件：
+
+```text
+reports/roi_alert_report.md
+```
+
+输出内容：
+
+- 异常广告清单
+- 触发规则
+- 关键数据
+- 优先级
+- 可能原因
+- 建议动作
+- 需人工确认的信息
+
+## LLM 状态说明
+
+当前版本中的 LLM 分析层是离线模拟分析器：
+
+- 不调用 OpenAI 或其他真实 LLM API。
+- 不需要 API key。
+- 不访问网络。
+- 按 `skills/roi-anomaly-analysis/SKILL.md` 中沉淀的人工分析流程生成建议。
+- 只分析已经被 ROI 阈值筛出的 `AlertCase`。
+- 不负责判断 ROI 是否异常。
+
+## MVP 完成情况
+
+当前第一版 MVP 已完成：
+
+- 已提供模拟 CSV 输入。
+- 已实现确定性 ROI 阈值初筛。
+- 已把异常广告整理为 `AlertCase`。
+- 已沉淀项目内分析流程。
+- 已实现离线 LLM 分析层。
+- 已生成 Markdown 预警报告。
+- 已提供基础测试。
 
 ## 后续步骤
 

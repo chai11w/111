@@ -24,11 +24,17 @@
 - 已生成 Markdown 预警报告：`reports/roi_alert_report.md`。
 - 已创建基础测试：`tests/test_roi_filter.py`。
 - 已创建项目说明：`README.md`。
+- 已补充 README 运行说明，明确输入、输出、运行命令和当前 LLM 为离线模拟分析器。
 
 ## 未完成
 
 - 尚未接入真实 LLM API。
 - 尚未接入真实广告平台数据。
+
+## MVP 完成判断
+
+- 第一版 MVP 已完成：模拟 CSV 输入、ROI 阈值初筛、异常广告结构化、离线 LLM 分析层、Markdown 预警报告和基础测试都已具备。
+- 当前未完成项属于 MVP 后续增强，不影响第一版 MVP 闭环。
 
 ## 关键规则
 
