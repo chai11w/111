@@ -33,8 +33,31 @@ date,platform,campaign_name,ad_name,spend,revenue,orders,clicks,impressions,ctr,
 
 ## 下一步
 
-实现 ROI 阈值初筛逻辑：
+当前已实现 ROI 阈值初筛逻辑：
 
 - ROI 低于低效阈值，标记为低效广告。
 - ROI 高于优质阈值，标记为优质广告。
 - ROI 正常，暂时不进入 LLM 分析。
+
+默认阈值：
+
+```text
+低效广告：roi < 1.2
+优质广告：roi > 3.0
+```
+
+运行初筛：
+
+```powershell
+python src/roi_filter.py --input data/ad_data_sample.csv
+```
+
+运行测试：
+
+```powershell
+python -m unittest discover -s tests
+```
+
+## 后续步骤
+
+下一步实现 LLM 分析层。第一版可以先使用本地离线占位分析器，避免被 API key 或网络环境卡住。

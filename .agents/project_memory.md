@@ -14,6 +14,10 @@
 - 已创建第一版项目结构：`data/`、`src/`、`reports/`。
 - 已创建模拟 CSV 数据：`data/ad_data_sample.csv`。
 - 已创建项目说明：`README.md`。
+- 已修正 `AGENTS.md` 中过期的项目范围描述，不再按路径名推断为复试笔试题工作区。
+- 已实现 ROI 阈值初筛脚本：`src/roi_filter.py`。
+- 已创建基础测试：`tests/test_roi_filter.py`。
+- 基础测试使用 Python 标准库 `unittest`，不依赖第三方测试框架。
 - 协作过程记录已启用，文件为 `.agents/codex过程记录.md`。
 - 协作过程记录内容应使用中文可读表达；时间使用阿拉伯数字格式。
 - 文件名、路径、命令、仓库地址和用户指定的专有名称必须保持原样，不翻译。
@@ -34,11 +38,11 @@
 - 已初始化本地版本库，绑定用户指定远端仓库，并完成首次提交与推送。
 - 已修正协作过程记录规则：时间用阿拉伯数字，文件名和路径保持原样。
 - 已完成 MVP 第 1 步：创建最小项目结构并生成模拟 CSV 数据。
+- 已完成 MVP 第 2 步：实现 ROI 阈值初筛逻辑。
 
 ## 未完成
 
 - 尚未开始真实笔试题执行流程。
-- 尚未实现 ROI 阈值初筛逻辑。
 - 尚未实现 LLM 分析接口或离线占位分析器。
 - 尚未实现 Markdown 预警报告生成。
 
@@ -59,7 +63,17 @@
 
 ## 重要命令
 
-暂无业务代码命令；当前只有模拟数据和项目说明。
+运行 ROI 初筛：
+
+```powershell
+python src/roi_filter.py --input data/ad_data_sample.csv
+```
+
+运行测试：
+
+```powershell
+python -m unittest discover -s tests
+```
 
 常用检查命令：
 
@@ -96,7 +110,7 @@ git ls-remote --symref origin HEAD
 
 ## 下一步
 
-下一步应实现 ROI 阈值初筛逻辑，读取 `data/ad_data_sample.csv` 并筛出低效广告和优质广告。
+下一步应实现 LLM 分析接口或离线占位分析器，只分析 `src/roi_filter.py` 筛出的异常广告。
 
 后续每次发生与笔试题相关的实质协作，都应追加到 `.agents/codex过程记录.md`，并记录本地时间、用户输入和模型输出。
 

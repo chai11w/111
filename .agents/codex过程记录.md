@@ -116,41 +116,6 @@ AGENTS.md
 .agents/codex过程记录.md
 ```
 
-### 2026-07-06 18:38:22
-
-**用户输入**
-
-```
-用户确认开始执行第 1 步，并要求模型自己模拟生成 CSV 文件。
-```
-
-**模型输出**
-
-```
-模型读取当前项目上下文和仓库状态，确认工作区干净。
-
-模型创建 `data/`、`src/`、`reports/` 三个目录。
-
-模型创建 `data/ad_data_sample.csv`，模拟 Facebook、Google、TikTok 三个平台的广告数据，字段包括 `date`、`platform`、`campaign_name`、`ad_name`、`spend`、`revenue`、`orders`、`clicks`、`impressions`、`ctr`、`cpa`、`roi`。样本覆盖低效广告、正常广告和优质广告。
-
-模型创建 `README.md`，说明 MVP 边界、当前目录、模拟数据字段和下一步。
-
-模型创建 `src/.gitkeep` 和 `reports/.gitkeep`，保留空目录。
-
-模型更新 `.agents/project_memory.md`，记录第 1 步已完成，下一步应实现 ROI 阈值初筛逻辑。
-```
-
-**本轮修改文件**
-
-```
-README.md
-data/ad_data_sample.csv
-src/.gitkeep
-reports/.gitkeep
-.agents/project_memory.md
-.agents/codex过程记录.md
-```
-
 ### 2026-07-06 18:19:12
 
 **用户输入**
@@ -236,6 +201,76 @@ AGENTS.md
 **本轮修改文件**
 
 ```
+.agents/project_memory.md
+.agents/codex过程记录.md
+```
+
+### 2026-07-06 18:38:22
+
+**用户输入**
+
+```
+用户确认开始执行第 1 步，并要求模型自己模拟生成 CSV 文件。
+```
+
+**模型输出**
+
+```
+模型读取当前项目上下文和仓库状态，确认工作区干净。
+
+模型创建 `data/`、`src/`、`reports/` 三个目录。
+
+模型创建 `data/ad_data_sample.csv`，模拟 Facebook、Google、TikTok 三个平台的广告数据，字段包括 `date`、`platform`、`campaign_name`、`ad_name`、`spend`、`revenue`、`orders`、`clicks`、`impressions`、`ctr`、`cpa`、`roi`。样本覆盖低效广告、正常广告和优质广告。
+
+模型创建 `README.md`，说明 MVP 边界、当前目录、模拟数据字段和下一步。
+
+模型创建 `src/.gitkeep` 和 `reports/.gitkeep`，保留空目录。
+
+模型更新 `.agents/project_memory.md`，记录第 1 步已完成，下一步应实现 ROI 阈值初筛逻辑。
+```
+
+**本轮修改文件**
+
+```
+README.md
+data/ad_data_sample.csv
+src/.gitkeep
+reports/.gitkeep
+.agents/project_memory.md
+.agents/codex过程记录.md
+```
+
+### 2026-07-06 18:42:41
+
+**用户输入**
+
+```
+用户要求继续执行下一步，并先检查和修正项目上下文冲突：如果 `AGENTS.md` 里还写着“根据路径名，视为复试笔试题相关执行工作区”，就改成当前真实项目：广告数据 AI 监控与预警工具第一版 MVP。
+```
+
+**模型输出**
+
+```
+模型读取 `AGENTS.md`、`.agents/project_memory.md`、`README.md` 和 `data/ad_data_sample.csv`，确认 `AGENTS.md` 确实仍有过期项目范围描述。
+
+模型修正 `AGENTS.md`，把项目范围改为广告数据 AI 监控与预警工具第一版 MVP，并明确当前只做 ROI 异常预警分析模块。
+
+模型继续执行第 2 步，创建 `src/roi_filter.py`。该脚本读取 `data/ad_data_sample.csv`，使用确定性阈值筛选 ROI 异常广告：`roi < 1.2` 标记为低效广告，`roi > 3.0` 标记为优质广告，正常 ROI 不进入后续分析。
+
+模型创建 `tests/test_roi_filter.py`，验证阈值边界和样本数据分类结果。首次尝试运行 `python -m pytest` 时发现当前环境未安装 `pytest`，因此模型把测试改为使用 Python 标准库 `unittest`，避免第一版 MVP 被第三方依赖卡住。
+
+模型更新 `README.md`，加入 ROI 初筛运行命令和 `python -m unittest discover -s tests` 测试命令。
+
+模型更新 `.agents/project_memory.md`，记录 `AGENTS.md` 冲突已修正，ROI 阈值初筛逻辑已完成，下一步应实现 LLM 分析接口或离线占位分析器。
+```
+
+**本轮修改文件**
+
+```
+AGENTS.md
+README.md
+src/roi_filter.py
+tests/test_roi_filter.py
 .agents/project_memory.md
 .agents/codex过程记录.md
 ```
