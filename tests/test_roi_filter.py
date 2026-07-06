@@ -1,3 +1,4 @@
+import csv
 import unittest
 from pathlib import Path
 
@@ -21,6 +22,15 @@ class RoiFilterTest(unittest.TestCase):
         self.assertEqual(len(low_ads), 4)
         self.assertEqual(len(high_ads), 4)
         self.assertEqual({ad.row["platform"] for ad in classified_ads}, {"Facebook", "Google", "TikTok"})
+
+    def test_sample_data_has_owner_and_category_after_platform(self):
+        with Path("data/ad_data_sample.csv").open("r", encoding="utf-8-sig", newline="") as file:
+            reader = csv.DictReader(file)
+            self.assertEqual(reader.fieldnames[:5], ["date", "platform", "owner", "category", "campaign_name"])
+            rows = list(reader)
+
+        self.assertEqual({row["owner"] for row in rows}, {"Alice", "Ben", "Cindy"})
+        self.assertEqual({row["category"] for row in rows}, {"Beauty", "Electronics", "Home"})
 
 
 if __name__ == "__main__":

@@ -63,7 +63,7 @@ def print_classified_ads(classified_ads: list[ClassifiedAd]) -> None:
     for ad in classified_ads:
         row = ad.row
         print(
-            f"{ad.alert_type} | {row['platform']} | {row['campaign_name']} | "
+            f"{ad.alert_type} | {row['platform']} | {row['owner']} | {row['category']} | {row['campaign_name']} | "
             f"{row['ad_name']} | roi={row['roi']} | 触发规则：{ad.trigger_rule}"
         )
 

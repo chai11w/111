@@ -26,10 +26,18 @@ reports/
 `data/ad_data_sample.csv` 包含以下字段：
 
 ```text
-date,platform,campaign_name,ad_name,spend,revenue,orders,clicks,impressions,ctr,cpa,roi
+date,platform,owner,category,campaign_name,ad_name,spend,revenue,orders,clicks,impressions,ctr,cpa,roi
 ```
 
 样本覆盖 Facebook、Google、TikTok 三个平台，并包含低效广告、正常广告、优质广告三类数据。
+
+`owner` 表示投手，`category` 表示投手负责的品类。当前模拟了 3 个投手：
+
+```text
+Alice -> Beauty
+Ben -> Electronics
+Cindy -> Home
+```
 
 ## 下一步
 

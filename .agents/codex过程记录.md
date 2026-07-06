@@ -18,6 +18,8 @@
 - 如果早期消息没有精确时间，就标注为约略时间。
 - 记录内容使用中文可读表达。
 - 文件名、路径、命令、仓库地址和用户指定的专有名称必须保持原样，不翻译。
+- 新增记录只能追加在本文件末尾，不插入已有记录中间。
+- 本文件按记录标题时间从早到晚排列；除非用户明确要求整理历史，否则不要重排旧记录。
 
 ## 对话记录
 
@@ -269,6 +271,65 @@ reports/.gitkeep
 ```
 AGENTS.md
 README.md
+src/roi_filter.py
+tests/test_roi_filter.py
+.agents/project_memory.md
+.agents/codex过程记录.md
+```
+
+### 2026-07-06 18:50:26
+
+**用户输入**
+
+```
+用户指出 `.agents/codex过程记录.md` 不应该每次都需要重排；应该设定好排序规则，后续按时间往下追加即可。
+```
+
+**模型输出**
+
+```
+模型承认问题根因是之前使用补丁时把新记录插入到了匹配到的旧段落后面，缺少硬性追加规则。
+
+模型检查 `.agents/codex过程记录.md` 当前标题顺序，确认现有记录已按时间从早到晚排列。
+
+模型更新 `AGENTS.md`、`.agents/project_memory.md` 和 `.agents/codex过程记录.md`，明确新增协作记录只能追加到 `.agents/codex过程记录.md` 文件末尾，不能插入已有记录中间；日常记录只追加，不重排，只有用户明确要求整理历史时才修正历史顺序。
+```
+
+**本轮修改文件**
+
+```
+AGENTS.md
+.agents/project_memory.md
+.agents/codex过程记录.md
+```
+
+### 2026-07-06 21:57:16
+
+**用户输入**
+
+```
+用户要求把 `.agents/codex过程记录.md` 中 `18:50:26` 这一段剪到末尾，然后提交推送。用户还要求在 `platform` 和 `campaign_name` 之间增加 `owner,category` 两个字段，因为项目背景中有 3 个投手，他们分别对应不同品类。
+```
+
+**模型输出**
+
+```
+模型检查当前仓库状态、`.agents/codex过程记录.md` 标题顺序、`data/ad_data_sample.csv` 和 `src/roi_filter.py`。
+
+模型把 `18:50:26` 记录段从中间剪切到 `.agents/codex过程记录.md` 文件末尾，并继续只在末尾追加本轮记录。
+
+模型更新 `data/ad_data_sample.csv`，在 `platform` 和 `campaign_name` 之间增加 `owner,category` 字段，并模拟 3 个投手与品类：`Alice -> Beauty`、`Ben -> Electronics`、`Cindy -> Home`。
+
+模型更新 `src/roi_filter.py`，让 ROI 初筛输出包含 `owner` 和 `category`。
+
+模型更新 `README.md`、`tests/test_roi_filter.py` 和 `.agents/project_memory.md`，记录新增字段、投手品类映射和测试覆盖。
+```
+
+**本轮修改文件**
+
+```
+README.md
+data/ad_data_sample.csv
 src/roi_filter.py
 tests/test_roi_filter.py
 .agents/project_memory.md
