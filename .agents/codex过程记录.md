@@ -532,3 +532,27 @@ README.md
 .gitignore
 .agents/codex过程记录.md
 ```
+
+### 2026-07-07 08:33:02
+
+**用户输入**
+
+```
+用户指出所有功能都已做好，但还没有串成一个流程，要求接下来把它串成一个流程。
+```
+
+**模型输出**
+
+```
+模型新增 src/run_pipeline.py 作为完整 MVP 流程入口，串联读取模拟 CSV、ROI 阈值初筛、AlertCase 结构化、离线 LLM 分析和 Markdown 报告生成。模型新增 tests/test_run_pipeline.py，更新 README.md 和 .agents/project_memory.md，明确推荐使用 python src/run_pipeline.py 一条命令运行完整流程。模型验证完整流程命令正常输出 8 条异常广告统计，并运行 7 个测试全部通过。
+```
+
+**本轮修改文件**
+
+```
+src/run_pipeline.py
+tests/test_run_pipeline.py
+README.md
+.agents/project_memory.md
+.agents/codex过程记录.md
+```

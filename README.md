@@ -71,7 +71,39 @@ Cindy -> Home
 
 从项目根目录执行以下命令。
 
-1. 运行 ROI 初筛：
+推荐直接运行完整 MVP 流程：
+
+```powershell
+python src/run_pipeline.py --input data/ad_data_sample.csv --output reports/roi_alert_report.md
+```
+
+该命令会依次完成：
+
+- 读取模拟 CSV 数据
+- 使用 ROI 阈值初筛异常广告
+- 整理 `AlertCase`
+- 使用离线 LLM 分析层生成原因和建议
+- 输出 Markdown 预警报告
+
+也可以按模块单独运行。
+
+推荐直接运行完整 MVP 流程：
+
+```powershell
+python src/run_pipeline.py --input data/ad_data_sample.csv --output reports/roi_alert_report.md
+```
+
+该命令会依次完成：
+
+- 读取模拟 CSV 数据
+- 使用 ROI 阈值初筛异常广告
+- 整理 `AlertCase`
+- 使用离线 LLM 分析层生成原因和建议
+- 输出 Markdown 预警报告
+
+也可以按模块单独运行。
+
+1. 只运行 ROI 初筛：
 
 ```powershell
 python src/roi_filter.py --input data/ad_data_sample.csv
@@ -139,6 +171,7 @@ reports/roi_alert_report.md
 - 已把异常广告整理为 `AlertCase`。
 - 已沉淀项目内分析流程。
 - 已实现离线 LLM 分析层。
+- 已串联完整 MVP 流程。
 - 已生成 Markdown 预警报告。
 - 已提供基础测试。
 

@@ -21,6 +21,7 @@
 - 已实现异常广告结构化整理：`AlertCase` 包含 `alert_type`、`trigger_rule` 和 `metrics`。
 - 已沉淀项目内分析流程：`skills/roi-anomaly-analysis/SKILL.md`。
 - 已实现离线 LLM 分析层：`src/llm_analyzer.py`。
+- 已实现完整 MVP 流程入口：`src/run_pipeline.py`。
 - 已生成 Markdown 预警报告：`reports/roi_alert_report.md`。
 - 已创建基础测试：`tests/test_roi_filter.py`。
 - 已创建项目说明：`README.md`。
@@ -33,7 +34,7 @@
 
 ## MVP 完成判断
 
-- 第一版 MVP 已完成：模拟 CSV 输入、ROI 阈值初筛、异常广告结构化、离线 LLM 分析层、Markdown 预警报告和基础测试都已具备。
+- 第一版 MVP 已完成：模拟 CSV 输入、ROI 阈值初筛、异常广告结构化、离线 LLM 分析层、完整流程入口、Markdown 预警报告和基础测试都已具备。
 - 当前未完成项属于 MVP 后续增强，不影响第一版 MVP 闭环。
 
 ## 关键规则
@@ -69,6 +70,12 @@ python -m unittest discover -s tests
 
 ```powershell
 python src/llm_analyzer.py --input data/ad_data_sample.csv --output reports/roi_alert_report.md
+```
+
+运行完整 MVP 流程：
+
+```powershell
+python src/run_pipeline.py --input data/ad_data_sample.csv --output reports/roi_alert_report.md
 ```
 
 检查版本库状态：
